@@ -22,10 +22,7 @@ $(document).ready(function () {
 				title: 'You are successfully connected to the broker!',
 				showConfirmButton: false,
 				timer: 2500,
-				animation: false,
-				customClass: {
-					popup: 'animated tada'
-				}
+				animation: true
 			})
 			console.log("Successfully Connected");
 		});
@@ -63,6 +60,10 @@ $(document).ready(function () {
 					type: 'error',
 					title: 'Oops...',
 					text: 'Please provide inputs!',
+					animation: false,
+					customClass: {
+						popup: 'animated tada'
+					}
 				});
 			}
 			else {
@@ -72,16 +73,17 @@ $(document).ready(function () {
 							type: 'error',
 							title: 'Oops...',
 							text: 'An error occurs!',
+							animation: false,
+							customClass: {
+								popup: 'animated tada'
+							}
 						});
 					} else {
 						console.log("Publish { Topic: " + $("#topic").val() + ","+" Payload: "+ $("#payload").val() + "}");
 						Swal.fire({
 							title: 'Published successfully!',
 							timer: 2500,
-							animation: false,
-							customClass: {
-								popup: 'animated tada'
-							}
+							animation: true
 						});
 					}
 					console.log("Succesfully Published")
@@ -102,6 +104,10 @@ $(document).ready(function () {
 					type: 'error',
 					title: 'Oops...',
 					text: 'Topic is not available!',
+					animation: false,
+					customClass: {
+						popup: 'animated tada'
+					}
 				});
 			}
 			else if (subscribe == topic && topic !== "") {
@@ -111,6 +117,10 @@ $(document).ready(function () {
 							type: 'error',
 							title: 'Oops...',
 							text: 'An error occurs!',
+							animation: false,
+							customClass: {
+								popup: 'animated tada'
+							}
 						});
 					} else {
 						var row = $("<tr>").attr("id", "mysub");
@@ -120,11 +130,8 @@ $(document).ready(function () {
   					console.log("Subscribe { Topic: " + $("#topic-sub").val() + " }");
 						Swal.fire({
 							title: 'Subscribed successfully!',
-							animation: false,
+							animation: true,
 							timer: 2500,
-							customClass: {
-								popup: 'animated tada'
-							}
 						});
 						console.log("Succesfully Subscribed ");
 					}
@@ -137,11 +144,8 @@ $(document).ready(function () {
 			$("#mysub").remove();
 			Swal.fire({
 				title: 'Unsubrscribed successfully!',
-				animation: false,
+				animation: true,
 				timer: 2500,
-				customClass: {
-					popup: 'animated tada'
-				}
 			});
 			console.log("Successfully Unsubscribed ");
 		})
