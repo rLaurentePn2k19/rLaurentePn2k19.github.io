@@ -6,7 +6,7 @@ $(document).ready(function () {
 	$("img").css("height","35px");
 	//For connect button
 	$('#connect_btn').click(function () {
-		var connect = $("#input-broker-ws").val();
+		var connect = $("#broker_input").val();
 		client = mqtt.connect(connect);
 		client.subscribe($("#topic").val());
 		console.log('Connecting..');
