@@ -100,7 +100,6 @@ $(document).ready(function () {
 							animation: true
 						});
 					}
-					console.log(list_published)
 					console.log("Succesfully Published")
 					var row = $("<tr>");
 					$("<td>").text(topic).appendTo($(row));
@@ -160,7 +159,6 @@ $(document).ready(function () {
 							animation: true,
 							timer: 2500,
 						});
-						console.log(list_subscribed);
 						console.log("Succesfully Subscribed ");
 					}
 				});
@@ -177,7 +175,6 @@ $(document).ready(function () {
 				animation: true,
 				timer: 2500,
 			});
-			console.log(list_subscribed);
 			console.log("Successfully Unsubscribed ");
 		})
 		client.on("message", function (topic, payload) {
