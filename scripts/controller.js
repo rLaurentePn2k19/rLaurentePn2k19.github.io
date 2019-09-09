@@ -1,4 +1,6 @@
 $(document).ready(function () {
+	let list_subscribed = [];
+	let list_published = [];
 	$("body").css({ "height": "100%", "background-color": "black" })
 	$(".card").css({ "height": "100%", "color": "black" })
 	$(".h4").css("color", "black");
@@ -65,6 +67,16 @@ $(document).ready(function () {
 						popup: 'animated tada'
 					}
 				});
+			}else if(list_published.includes(topic)){
+				Swal.fire({
+					type: 'error',
+					title: 'Oops...',
+					text: 'You already published this topic!',
+					animation: false,
+					customClass: {
+						popup: 'animated tada'
+					}
+				});
 			}
 			else {
 				client.publish(topic, payload, function (err) {
@@ -79,13 +91,16 @@ $(document).ready(function () {
 							}
 						});
 					} else {
+						list_published.push(topic)
 						console.log("Publish { Topic: " + $("#topic").val() + ","+" Payload: "+ $("#payload").val() + "}");
 						Swal.fire({
+							type: 'success',
 							title: 'Published successfully!',
 							timer: 2500,
 							animation: true
 						});
 					}
+					console.log(list_published)
 					console.log("Succesfully Published")
 					var row = $("<tr>");
 					$("<td>").text(topic).appendTo($(row));
@@ -95,6 +110,7 @@ $(document).ready(function () {
 				});
 			}
 		});
+		
 		//For Subscribe
 		$("#subscribe_btn").click(function () {
 			var subscribe = $("#topic-sub").val();
@@ -104,6 +120,16 @@ $(document).ready(function () {
 					type: 'error',
 					title: 'Oops...',
 					text: 'Topic is not available!',
+					animation: false,
+					customClass: {
+						popup: 'animated tada'
+					}
+				});
+			}else if(list_subscribed.includes(subscribe)){
+				Swal.fire({
+					type: 'error',
+					title: 'Oops...',
+					text: 'You already subscribed this topic!',
 					animation: false,
 					customClass: {
 						popup: 'animated tada'
@@ -123,6 +149,7 @@ $(document).ready(function () {
 							}
 						});
 					} else {
+						list_subscribed.push(subscribe);
 						var row = $("<tr>").attr("id", "mysub");
 						$("<td>").text(topic).appendTo($(row));
 						$("<td>").text(moment().format('MMMM Do YYYY, h:mm:ss a')).appendTo($(row));
@@ -133,6 +160,7 @@ $(document).ready(function () {
 							animation: true,
 							timer: 2500,
 						});
+						console.log(list_subscribed);
 						console.log("Succesfully Subscribed ");
 					}
 				});
@@ -140,13 +168,16 @@ $(document).ready(function () {
 		})
 		//For Unsubscribe
 		$("#unsubscribe_btn").click(function () {
+			var subscribe = $("#topic-sub").val();
 			$("#topic-sub").val("");
 			$("#mysub").remove();
+			list_subscribed.splice(subscribe)
 			Swal.fire({
 				title: 'Unsubrscribed successfully!',
 				animation: true,
 				timer: 2500,
 			});
+			console.log(list_subscribed);
 			console.log("Successfully Unsubscribed ");
 		})
 		client.on("message", function (topic, payload) {
