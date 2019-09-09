@@ -167,22 +167,34 @@ $(document).ready(function () {
 		//For Unsubscribe
 		$("#unsubscribe_btn").click(function () {
 			var subscribe = $("#topic-sub").val();
-			$("#topic-sub").val("");
-			$("#mysub").remove();
-			list_subscribed.splice(subscribe)
-			Swal.fire({
-				title: 'Unsubrscribed successfully!',
-				animation: true,
-				timer: 2500,
-			});
+			if(list_subscribed.length == 0){
+				Swal.fire({
+					type: 'error',
+					title: 'Oops...',
+					text: 'You cannot do this without subscribing first.',
+					animation: false,
+					customClass: {
+						popup: 'animated tada'
+					}
+				});
+			}else{
+				$("#topic-sub").val("");
+				$("#mysub").remove();
+				list_subscribed.splice(subscribe)
+				Swal.fire({
+					title: 'Unsubrscribed successfully!',
+					animation: true,
+					timer: 2500,
+				});
+			}
 			console.log("Successfully Unsubscribed ");
 		})
-		client.on("message", function (topic, payload) {
-			var row = $("<tr>");
-			$("<td>").text(topic).appendTo($(row));
-			$("<td>").text(payload).appendTo($(row));
-			$("<td>").text(moment().format('MMMM Do YYYY, h:mm:ss a')).appendTo($(row));
-			$("#tbl-body").append($(row));
-		})
+		// client.on("message", function (topic, payload) {
+		// 	var row = $("<tr>");
+		// 	$("<td>").text(topic).appendTo($(row));
+		// 	$("<td>").text(payload).appendTo($(row));
+		// 	$("<td>").text(moment().format('MMMM Do YYYY, h:mm:ss a')).appendTo($(row));
+		// 	$("#tbl-body").append($(row));
+		// })
 	});
 })
