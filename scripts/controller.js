@@ -26,7 +26,7 @@ $(document).ready(function () {
 				timer: 2500,
 				animation: true
 			})
-			console.log("Successfully Connected");
+			console.log("Successfully Connected.");
 		});
 		//For Disconnect button
 		$(".disconnect_btn").click(function () {
